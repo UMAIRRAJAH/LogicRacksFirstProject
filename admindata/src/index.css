@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Caprasimo&family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400..900&family=Dancing+Script:wght@400..700&family=Noto+Nastaliq+Urdu:wght@400..700&family=Outfit:wght@100..900&display=swap'); 
+
+@import "tailwindcss";
+select,input,textarea{
+  border:1px solid cyan;
+  outline-color: #c686A6;
+  border-radius: 6px;
+}
+
+.active{
+  background-color:#ffebf6;
+  border:#c686A6
+}

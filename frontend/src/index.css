@@ -1,0 +1,31 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Caprasimo&family=Cinzel+Decorative:wght@400700900&family=Cinzel:wght@400..900&family=Dancing+Script:wght@400..700&family=Noto+Nastaliq+Urdu:wght@400..700display=swap');
+
+
+@import "tailwindcss";
+
+a.active hr{
+display: block;
+}
+#navbar:hover{
+  color: white;
+  background-color: black;
+}
+*{
+  font-family: outfit;
+}
+.bungee-tint-regular {
+  font-family: "Bungee Tint", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@media(max-width: 600px){
+  a.active{
+    background-color: black;
+    color:white;
+  }
+}
+::-webkit-scrollbar{
+  display: none;
+}
