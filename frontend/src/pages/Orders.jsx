@@ -70,7 +70,7 @@ const loadOrderData = async () => {
               <div>
                         <p className='sm:text-base font-bold bg-sky-500/100 rounded-2xl p-1 text-center'>{item.name}</p>
                 <div className='flex items-center gap-3 mt-2 text-base font-bold text-black'>
-                  <p className='text-lg  bg-amber-600 p-1 rounded-sm text-white'text-white>{currency}{item.price}</p>
+                  <p className='text-lg  bg-amber-600 p-1 rounded-sm text-white'>{currency}{item.price}</p>
                   <p className='text-lg bg-lime-600 text-white p-1 rounded-sm '>Quantity:{item.quantity}</p>
                   <p className='text-lg bg-pink-600 p-1 text-white rounded-sm '>Size:{item.size}</p>
 

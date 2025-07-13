@@ -9,27 +9,31 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const placeOrder = async (req, res) => {
   try {
-   const data = req.body.orderData || req.body;
-const { address, items, amount, paymentMethod } = data;
+    const data = req.body.orderData || req.body;
 
+    // Make sure this is BEFORE using amount
+    const { address, items, amount, paymentMethod } = data;
 
     console.log("Incoming order data:", req.body);
 
-    if (!address || !items || !amount || !paymentMethod) {
-      return res.status(400).json({ error: "Missing required fields" });
+    if (!address || !items || !items.length || !amount || !paymentMethod) {
+      return res.status(400).json({ error: "Missing required fields or items are empty" });
     }
 
-  
+    const DELIVERY_FEE = 5.0;
+    const totalAmount = parseFloat(amount) + DELIVERY_FEE;
+
+    // Optional: card payment logic
     if (paymentMethod === "card") {
-     
+      // card payment integration here
     }
 
-   
     const order = new OrderModel({
-      userId: req.userId, 
+      userId: req.userId,
       address,
       items,
-      amount,
+      amount: totalAmount,
+      deliveryFee: DELIVERY_FEE,
       paymentMethod,
       status: "order placed",
       createdAt: Date.now(),
@@ -37,9 +41,13 @@ const { address, items, amount, paymentMethod } = data;
 
     await order.save();
 
-    res.status(201).json({ success: true, order });
+    res.status(201).json({
+      success: true,
+      message: "Order placed successfully",
+      order,
+    });
   } catch (err) {
-    console.error("🔥 placeOrder server error:", err); 
+    console.error("🔥 placeOrder server error:", err);
     res.status(500).json({ error: "Internal Server Error", details: err.message });
   }
 };

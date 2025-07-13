@@ -21,10 +21,10 @@ console.log('MONGODB_URI:', process.env.MONGODB_URI);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors());
- // your configured module
+  
 
-// Upload a local file
-// api endpoint
+// Upload a   file
+// api 
 app.use('/api/user',userRouter);
 app.use('/api/product',productRouter);
 app.use('/api/cart', cartRouter);
