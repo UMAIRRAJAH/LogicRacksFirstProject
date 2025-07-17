@@ -22,7 +22,9 @@ const orderId = searchParams.get('orderId')?.replace('}', '');
       const response = await axios.post(
         `${backendUrl}/api/order/verifyStripe`,
         { success, orderId, userId }, // Include userId if your backend expects it
-        { headers: { token } }
+        { headers: {
+      Authorization: `Bearer ${token}`
+    } }
       );
 
       if (response.data.success) {
@@ -41,7 +43,7 @@ const orderId = searchParams.get('orderId')?.replace('}', '');
   };
 
   useEffect(() => {
-    verifyPayment(); // ✅ ACTUALLY CALL the function
+    verifyPayment(); 
   }, [token]);
 
   return <div className="text-center text-xl mt-20">Verifying your payment...</div>;

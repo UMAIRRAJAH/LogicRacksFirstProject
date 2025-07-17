@@ -5,7 +5,7 @@ import Stripe from "stripe";
 import userModel from "../models/userModel.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-// controllers/orderController.js or similar
+
 
 export const placeOrder = async (req, res) => {
   try {

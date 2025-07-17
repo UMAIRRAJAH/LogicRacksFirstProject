@@ -1,22 +1,30 @@
-import multer from 'multer';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
+import multer from 'multer';
 
-const uploadPath = 'uploads';
+// Check if we're running on Vercel
+const isVercel = !!process.env.VERCEL;
 
-if (!fs.existsSync(uploadPath)) {
-  fs.mkdirSync(uploadPath, { recursive: true });
+// Use /tmp/uploads for Vercel; use local uploads otherwise
+const uploadDir = isVercel
+  ? '/tmp/uploads'
+  : path.resolve(process.cwd(), 'uploads');
+try {
+  if (!fs.existsSync(uploadDir)) {
+   fs.mkdirSync(uploadDir, { recursive: true });
+    console.log(`✅ Upload directory created at: ${uploadDir}`);
+  }
+} catch (err) {
+  console.error(`❌ Failed to create upload directory: ${err}`);
+  throw err;
 }
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadPath);
-  },
-  filename: function (req, file, cb) {
-    const uniqueName = Date.now() + '-' + file.originalname;
-    cb(null, uniqueName);
-  },
-});
-const upload = multer({ dest: 'uploads/' }); // or multer.diskStorage if needed
 
+// Multer storage setup
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
+});
+
+const upload = multer({ storage });
 
 export default upload;

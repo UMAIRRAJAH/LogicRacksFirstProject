@@ -30,7 +30,7 @@ const About = () => {
         </div>
       </div>
 
-      {/* Bottom Section: 3 Cards in One Row */}
+      {/* Bottom Section: */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Card 1 */}
         <div className="bg-gray-100 rounded-lg shadow p-6 text-center">

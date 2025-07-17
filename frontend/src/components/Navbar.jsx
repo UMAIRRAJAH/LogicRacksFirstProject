@@ -44,10 +44,11 @@ const Navbar = () => {
             <div className='group relative'>
         <img onClick={()=>token? null: navigate('/login') } src={assets.user} className='w-12 min-w-6 cursor-pointer'/>
 
-                {token && <div className='group-hover:block hidden dropdown-menu   absolute right-0 top-full z-50 bg-white shadow-lg text-center'>
-                    <div className='flex flex-col gap-2 w-30 py bg-slate-100 text-gray-500 rouded'>
-                    <p id='navbar' className='cursor-pointer hover:text-black'>My Profile</p>
-                    <p id='navbar' onClick={()=>{navigate('/orders')}} className='cursor-pointer hover:text-black'>Orders</p>
+                {token && <div className='group-hover:block hidden sm:visible  dropdown-menu   absolute right-0 top-full z-50 bg-white shadow-lg text-center'>
+                    <div className='flex flex-col gap-2 w-30 py bg-slate-100 text-gray-500 rounded'>
+                    
+                    <p id='navbar' onClick={()=>{navigate('/profile')}}  className='cursor-pointer hover:text-black'>My Profile</p>
+                    <p id='navbar' onClick={()=>{navigate('/orders')}} className='cursor-pointer hover:text-black'>My Orders</p>
                     <p id='navbar' onClick={logout} className='cursor-pointer hover:text-black'>LogOut</p>
                     </div>
                 </div>}

@@ -40,9 +40,9 @@ const onSubmitHandler = async (e) => {
       backendUrl + "/api/product/add",
       formData,
       {
-        headers: {
-          token: token 
-        }
+      headers: {
+      Authorization: `Bearer ${token}`
+    }
         
       }
     );

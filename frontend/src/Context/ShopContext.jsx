@@ -43,7 +43,7 @@ if(token){
 
     try {
          await axios.post(backendUrl + '/api/cart/add', { itemId, size}, {
-  headers: {token}
+  headers: {Authorization: `Bearer ${token}`}
 
 });
 
@@ -92,7 +92,7 @@ const updateCartQuantity= async(itemId,size,quantity)=>{
   backendUrl + '/api/cart/update',
   { itemId, size,quantity},
   {
-    headers: {token}
+    headers: {Authorization: `Bearer ${token}`}
   }
 );
 
@@ -112,7 +112,7 @@ const getUserCart = async (token) => {
       { userId }, // <-- send userId here
       {
         headers: {
-          token,
+       Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       }
@@ -144,10 +144,10 @@ useEffect(() => {
 
 const getProductData = async () => {
   try {
+    const token = localStorage.getItem('token'); // optional
+
     const response = await axios.get(backendUrl + '/api/product/list', {
-      headers: {
-        token: localStorage.getItem('token') || ''
-      }
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
 
     if (response.data.products) {
@@ -156,10 +156,11 @@ const getProductData = async () => {
       toast.error(response.data.message || 'No products found');
     }
   } catch (error) {
-    console.error(error);
-    toast.error(error.message || 'Error fetching products');
+    console.error("Product fetch error:", error);
+    toast.error(error.response?.data?.message || 'Error fetching products');
   }
 };
+
 
 
 useEffect(() => {
@@ -182,7 +183,7 @@ useEffect(() => {
     setCartItems,
     backendUrl,
     token,
-      userId,           // ✅ ADD THIS
+      userId,          
   setUserId     ,
     setToken
     }

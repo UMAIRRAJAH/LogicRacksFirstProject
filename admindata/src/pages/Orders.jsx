@@ -41,7 +41,9 @@ const Orders = ({ token }) => {
           status: newStatus
         },
         {
-          headers: { token }
+          headers: {
+      Authorization: `Bearer ${token}`
+    }
         }
       );
 

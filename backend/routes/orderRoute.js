@@ -1,7 +1,9 @@
 import express from 'express'
-import { placeOrder,userOrders,updateStatus,allOrders,placeOrderStripe, verifyStripe } from '../controllers/orderController.js';
+import { placeOrder,userOrders,updateStatus,allOrders,placeOrderStripe, verifyStripe, } from '../controllers/orderController.js';
 
 import { verifyUser } from '../middleware/verifyUser.js';
+
+
 const orderRouter=express.Router()
 //admin feauture
 orderRouter.post('/list', verifyUser,allOrders)

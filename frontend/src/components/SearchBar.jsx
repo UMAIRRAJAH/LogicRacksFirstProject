@@ -14,7 +14,7 @@ useEffect(()=>{
     setVisible(false)
 }
 },[location,showSearch])
-  // console.log(showSearch); // ✅ move here, outside JSX
+
 
   return showSearch && visible? (
     <div className='border-t border-b bg-gray-50 text-center'>

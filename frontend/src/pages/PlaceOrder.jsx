@@ -25,6 +25,12 @@ const PlaceOrder = () => {
 
  const onSubmitHandler = async (event) => {
   event.preventDefault();
+  if (!token || !userId) {
+  toast.error("Please log in to place an order.");
+  sessionStorage.setItem("resumeCheckout", "true");
+  navigate('/login'); // or show modal instead
+  return;
+}
 
   const cartAmount = Number(getCartAmount()) || 0;
   const deliveryFee = delivery_fee || 0;
@@ -90,11 +96,12 @@ console.log("User ID:", userId)
     let response;
 
     switch (method) {
+     
       case 'cod':
         response = await axios.post(
           backendUrl + "/api/order/place",
           orderData,
-          { headers: { token } }
+          { headers: {  Authorization: `Bearer ${token}` } }
         );
 
         if (response.data.success) {

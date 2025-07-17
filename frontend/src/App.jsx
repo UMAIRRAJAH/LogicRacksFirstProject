@@ -16,7 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import Delivery from './pages/Delivery';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Verify from './pages/Verify'
-
+import Profile from './components/Profile'
 
 
 const App = () => {
@@ -28,7 +28,10 @@ const App = () => {
 
 
       <Routes>
+
         <Route path='/' element={<Home/>}/>
+        <Route path="/profile" element={<Profile />} />
+
         <Route path='/collection' element={<Collection/>}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<Contact/>}/>

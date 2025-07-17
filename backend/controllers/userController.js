@@ -26,7 +26,7 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ success: false, message: "Please enter a valid email" });
     }
 
-    // Validate password (this was wrong in your code)
+    // Validate password 
     if (password.length < 8) {
       return res.status(400).json({ success: false, message: "Password must be at least 8 characters" });
     }

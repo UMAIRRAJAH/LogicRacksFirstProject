@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
 import React, { useState, useEffect, useContext } from 'react';
 import { ShopContext } from '../Context/ShopContext';
 import axios from 'axios';
@@ -29,7 +29,7 @@ const onSubmitHandler = async (event) => {
         setToken(token);
         localStorage.setItem('token', token);
 
-        // ✅ Decode and store userId
+       
         const decoded = JSON.parse(atob(token.split('.')[1]));
         const userId = decoded.id;
         localStorage.setItem('userId', userId);
@@ -49,7 +49,6 @@ const onSubmitHandler = async (event) => {
         setToken(token);
         localStorage.setItem('token', token);
 
-        // ✅ Decode and store userId
         const decoded = JSON.parse(atob(token.split('.')[1]));
        const userIdFromToken = decoded.id;
 setUserId(userIdFromToken);

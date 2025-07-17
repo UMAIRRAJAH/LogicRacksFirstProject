@@ -56,10 +56,10 @@ await product.save()
 export const listProducts = async (req, res) => {
   try {
     const products = await productModel.find({});
-    console.log("Fetched products:", products); // ✅ Add this
+    console.log("Fetched products:", products); 
     res.status(200).json({ success: true, products });
   } catch (error) {
-    console.error("Product fetch error:", error); // ✅ Better logging
+    console.error("Product fetch error:", error); 
     res.status(500).json({ success: false, message: error.message });
   }
 };
