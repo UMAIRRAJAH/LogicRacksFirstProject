@@ -45,3 +45,4 @@ app.get('/', (req, res) => {
 
 // Start server
 app.listen(port, () => console.log(`Server started on http://localhost:${port}`));
+export const handler = serverless(app);
