@@ -1,7 +1,9 @@
 // controllers/productController.js
 import cloudinary from 'cloudinary';
 import productModel from '../models/productModel.js';
-import multer from '../middleware/multer.js'
+
+import upload from '../config/multer.js';
+
  export const addProduct = async (req, res) => {
   try {
     const {name,description,price,category,subCategory,sizes,bestseller } = req.body;
