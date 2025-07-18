@@ -1,72 +1,53 @@
-// controllers/productController.js
-import cloudinary from 'cloudinary';
+import cloudinary from '../config/cloudinary.js';
 import productModel from '../models/productModel.js';
+import fs from 'fs';
 
-import upload from '../config/multer.js';
 export const addProduct = async (req, res) => {
   try {
     const { name, description, price, category, subCategory, sizes, bestseller } = req.body;
-
     const image = req.file;
-    console.log(req.file);
 
     if (!image) {
       return res.status(400).json({ success: false, message: 'Image is required' });
     }
 
-    console.log('Received image:', image);
+    console.log("Received file:", image);
+    console.log("Form fields:", req.body);
 
-    // Cloudinary upload via stream
-    const filePath = image.path;
-    const fileStream = fs.createReadStream(filePath);
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(image.path, {
+      folder: 'products',
+    });
 
-    
-    let result;
-    try {
-      result = await new Promise((resolve, reject) => {
-        const stream = cloudinary.uploader.upload_stream(
-          { folder: 'products' },
-          (error, result) => {
-            if (error) return reject(error);
-            resolve(result);
-          }
-        );
-        fileStream.pipe(stream);
-      });
+    // Delete temp file
+    fs.unlinkSync(image.path);
 
-      fs.unlinkSync(filePath); // Cleanup temp file
-    } catch (err) {
-      console.error('Cloudinary Upload Error:', err);
-      return res.status(500).json({ success: false, message: 'Cloudinary upload failed' });
-    }
-
-    const imageUrl = result.secure_url;
-
+    // Parse sizes safely
     let parsedSizes;
     try {
       parsedSizes = JSON.parse(sizes);
-    } catch (e) {
+    } catch (err) {
       return res.status(400).json({ success: false, message: 'Invalid sizes format' });
     }
 
-    const productData = {
+    const product = new productModel({
       name,
       description,
-      category,
       price: Number(price),
+      category,
       subCategory,
       bestseller: bestseller === 'true',
       sizes: parsedSizes,
-      image: imageUrl,
-      date: Date.now()
-    };
+      image: result.secure_url,
+      date: Date.now(),
+    });
 
-    const product = new productModel(productData);
     await product.save();
 
     res.json({ success: true, message: "Product Added" });
+
   } catch (error) {
-    console.error('Server Error:', error);
+    console.error("❌ Error in addProduct:", error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -91,10 +72,11 @@ await productModel.findByIdAndDelete(req.body.id);
 // console.log('Deleting product with ID:', req.body.id);
 
     res.json({success:true,message:"Product Removed"})
-  } catch (error) {
-  console.error("Add Product Error:", error);
-  res.status(500).json({ success: false, message: error.message });
-}
+  }catch(error){
+    
+    console.log(error)
+      res.json({success:false,message:error.message})
+  }
 };
 export const singleProduct = async (req, res) => {
   try {

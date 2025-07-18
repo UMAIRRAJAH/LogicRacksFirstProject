@@ -1,8 +1,9 @@
 import express from 'express'
 const router = express.Router();
+
 import {addProduct,listProducts,removeProduct,singleProduct} from '../controllers/productController.js';
 // ✅ correct path
-import upload from '../config/multer.js';
+import upload from '../middleware/multer.js';
 
 import { verifyUser } from '../middleware/verifyUser.js';
 
