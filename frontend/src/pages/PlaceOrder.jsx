@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import Title from '../components/Title'
-import CartTotal from '../components/cartTotal'
+import CartTotal from '../components/CartTotal'
 import { ShopContext } from '../Context/ShopContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'

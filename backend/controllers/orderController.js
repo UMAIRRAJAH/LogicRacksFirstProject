@@ -3,7 +3,8 @@ import orderModel from "../models/orderModel.js";
 import OrderModel from "../models/orderModel.js";
 import Stripe from "stripe";
 import userModel from "../models/userModel.js";
-
+import dotenv from 'dotenv';
+dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 
