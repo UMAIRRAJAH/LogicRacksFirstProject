@@ -3,52 +3,70 @@ import cloudinary from 'cloudinary';
 import productModel from '../models/productModel.js';
 
 import upload from '../config/multer.js';
-
- export const addProduct = async (req, res) => {
+export const addProduct = async (req, res) => {
   try {
-    const {name,description,price,category,subCategory,sizes,bestseller } = req.body;
+    const { name, description, price, category, subCategory, sizes, bestseller } = req.body;
+
     const image = req.file;
+    console.log(req.file);
 
+    if (!image) {
+      return res.status(400).json({ success: false, message: 'Image is required' });
+    }
 
-const image_man = req.file; // req.file single upload
+    console.log('Received image:', image);
 
-    console.log('Image:', image_man);
-console.log(req.file)
-console.log(req.body)
-if (image) {
-  console.log('Image uploaded:', image.filename);
-} else {
-  console.log('No image uploaded');
-}
+    // Cloudinary upload via stream
+    const filePath = image.path;
+    const fileStream = fs.createReadStream(filePath);
 
-    console.log("FILES:", req.file);
-
-  const result = await cloudinary.uploader.upload(image.path, {
-  resource_type: 'image',
-  folder: 'products',
-});
-
-const imageUrl = result.secure_url;
-
-const productData={
-  name,
-  description,
-  category,
-  price:Number(price),
-  subCategory,
-  bestseller:bestseller=="true"?true:false,
-  sizes:JSON.parse(sizes),
-  image:imageUrl,
-  date:Date.now()
-}
-console.log(productData)
-const product=new productModel(productData)
-await product.save()
-
-// console.log("image:", image ? image.filename : "undefined");
     
-    res.json({success:true,message:"Product Added"});
+    let result;
+    try {
+      result = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: 'products' },
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result);
+          }
+        );
+        fileStream.pipe(stream);
+      });
+
+      fs.unlinkSync(filePath); // Cleanup temp file
+    } catch (err) {
+      console.error('Cloudinary Upload Error:', err);
+      return res.status(500).json({ success: false, message: 'Cloudinary upload failed' });
+    }
+
+    const imageUrl = result.secure_url;
+
+    let parsedSizes;
+    try {
+      parsedSizes = JSON.parse(sizes);
+    } catch (e) {
+      return res.status(400).json({ success: false, message: 'Invalid sizes format' });
+    }
+
+    const productData = {
+      name,
+      description,
+      category,
+      price: Number(price),
+      subCategory,
+      bestseller: bestseller === 'true',
+      sizes: parsedSizes,
+      image: imageUrl,
+      date: Date.now()
+    };
+
+    const product = new productModel(productData);
+    await product.save();
+
+    res.json({ success: true, message: "Product Added" });
   } catch (error) {
+    console.error('Server Error:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -73,11 +91,10 @@ await productModel.findByIdAndDelete(req.body.id);
 // console.log('Deleting product with ID:', req.body.id);
 
     res.json({success:true,message:"Product Removed"})
-  }catch(error){
-    
-    console.log(error)
-      res.json({success:false,message:error.message})
-  }
+  } catch (error) {
+  console.error("Add Product Error:", error);
+  res.status(500).json({ success: false, message: error.message });
+}
 };
 export const singleProduct = async (req, res) => {
   try {

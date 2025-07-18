@@ -1,17 +1,15 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import multer from 'multer';
 
-// Check if we're running on Vercel
 const isVercel = !!process.env.VERCEL;
-
-// Use /tmp/uploads for Vercel; use local uploads otherwise
 const uploadDir = isVercel
   ? '/tmp/uploads'
   : path.resolve(process.cwd(), 'uploads');
+
 try {
   if (!fs.existsSync(uploadDir)) {
-   fs.mkdirSync(uploadDir, { recursive: true });
+    fs.mkdirSync(uploadDir, { recursive: true });
     console.log(`✅ Upload directory created at: ${uploadDir}`);
   }
 } catch (err) {
@@ -19,7 +17,6 @@ try {
   throw err;
 }
 
-// Multer storage setup
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)

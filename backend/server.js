@@ -104,10 +104,33 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/newsletter', newsletterRoute);
 app.use('/api/message', contactRouter);
+// Define allowed origins
+app.use(cors({
+  origin: [
+    'https://frontend-ku8mebfzm-umairrajahs-projects.vercel.app',
+    'https://admindata-cj5c6k9uy-umairrajahs-projects.vercel.app'
+  ]
+}));
+
+// CORS config with dynamic origin
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
+
+// Example route
+app.get('/api/product/list', (req, res) => {
+  res.json({ products: [] }); // example response
+});
 
 // Root route
 app.get('/', (req, res) => {
-  res.send('API working from Serverless Function');
+  res.send(' Congratulation API working ');
 });
 
 // // 🔁 Export the handler
