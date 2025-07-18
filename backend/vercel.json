@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/server.js" }
+  ]
+}
+

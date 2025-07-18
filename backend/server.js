@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import serverless from 'serverless-http';
 
 import cloudinary from './config/cloudinary.js';
 import connectDB from './config/mongodb.js';
