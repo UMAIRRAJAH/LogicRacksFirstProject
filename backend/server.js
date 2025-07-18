@@ -105,23 +105,7 @@ app.use('/api/order', orderRouter);
 app.use('/api/newsletter', newsletterRoute);
 app.use('/api/message', contactRouter);
 // Define allowed origins
-app.use(cors({
-  origin: [
-    'https://frontend-ku8mebfzm-umairrajahs-projects.vercel.app',
-    'https://admindata-cj5c6k9uy-umairrajahs-projects.vercel.app'
-  ]
-}));
 
-// CORS config with dynamic origin
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-}));
 
 // Example route
 app.get('/api/product/list', (req, res) => {
@@ -136,7 +120,23 @@ app.get('/', (req, res) => {
 // // 🔁 Export the handler
 // export const handler = serverless(app);
 // export default handler;
+app.use(cors({
+  origin: [
+    'https://logic-racks-first-project-lc9k.vercel.app',
+    'https://logic-racks-first-project-jo61.vercel.app'
+  ]
+}));
 
+// CORS config with dynamic origin
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 const PORT = 7000;
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
