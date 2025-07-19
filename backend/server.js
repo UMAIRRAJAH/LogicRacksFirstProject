@@ -19,12 +19,11 @@ const router = express.Router();
 
 // ✅ Now safe to use middleware
 // Allow requests from your frontend domain
-const express = require('express');
-const cors = require('cors');
+
 
 
 // ✅ Allow requests from your frontend
-app.use(cors);
+app.use(cors());
 
 // Body parser middleware (if needed)
 app.use(express.json());
