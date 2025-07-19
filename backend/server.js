@@ -43,7 +43,6 @@ router.get('/test', (req, res) => {
   res.send('Router works!');
 });
 
-// Your routes (as is, looks fine)
 app.get('/api/user/admin', (req, res) => res.json({ message: 'Admin route working' }));
 app.get('/api/user/register', (req, res) => res.json({ message: 'Register route working' }));
 app.get('/api/user/login', (req, res) => res.json({ message: 'Login route working' }));

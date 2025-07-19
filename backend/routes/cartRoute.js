@@ -3,10 +3,11 @@ import { addToCart, getUserCart, updateCartQuantity } from '../controllers/cartC
 import { verifyUser } from '../middleware/verifyUser.js';
 
 
+
 const cartRouter = express.Router();
 
-cartRouter.post('/get',  getUserCart);
-cartRouter.post('/add',  addToCart);
-cartRouter.post('/update', updateCartQuantity);
+cartRouter.post('/get', verifyUser, getUserCart);
+cartRouter.post('/add', verifyUser, addToCart);
+cartRouter.post('/update',verifyUser, updateCartQuantity);
 
 export default cartRouter;

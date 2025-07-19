@@ -22,20 +22,43 @@ const Navbar = () => {
       </Link>
 
       {/* Desktop Nav Links */}
-      <ul className="hidden sm:flex gap-5 text-sm text-gray-800 relative top-8">
-        <NavLink to="/" className="flex flex-col items-center gap-2">
-          <p>HOME</p>
-        </NavLink>
-        <NavLink to="/collection" className="flex flex-col items-center gap-2">
-          <p>COLLECTION</p>
-        </NavLink>
-        <NavLink to="/about" className="flex flex-col items-center gap-2">
-          <p>ABOUT</p>
-        </NavLink>
-        <NavLink to="/contact" className="flex flex-col items-center gap-2">
-          <p>CONTACT</p>
-        </NavLink>
-      </ul>
+   <ul className="hidden sm:flex gap-5 text-sm relative top-8">
+  <NavLink
+    to="/"
+    className={({ isActive }) =>
+      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-purple-600 font-semibold' : 'text-gray-800'}`
+    }
+  >
+    <p>HOME</p>
+  </NavLink>
+
+  <NavLink
+    to="/collection"
+    className={({ isActive }) =>
+      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-purple-600 font-semibold' : 'text-gray-800'}`
+    }
+  >
+    <p>COLLECTION</p>
+  </NavLink>
+
+  <NavLink
+    to="/about"
+    className={({ isActive }) =>
+      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-purple-600 font-semibold' : 'text-gray-800'}`
+    }
+  >
+    <p>ABOUT</p>
+  </NavLink>
+
+  <NavLink
+    to="/contact"
+    className={({ isActive }) =>
+      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-purple-600 font-semibold' : 'text-gray-800'}`
+    }
+  >
+    <p>CONTACT</p>
+  </NavLink>
+</ul>
 
       {/* Right Side Icons */}
       <div className="flex items-center gap-6">

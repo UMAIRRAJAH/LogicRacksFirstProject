@@ -18,43 +18,49 @@ const ShopContextProvider =(props) =>{
     const [userId, setUserId] = useState(localStorage.getItem('userId') || '');
 
 
-   const addToCart =async (itemId,size)=>{
-    if(!size){
-        toast.error('Select Products')
-        return;
-    }
-    let cartData= structuredClone(cartItems); 
-    if(cartData[itemId]){
-        if(cartData[itemId][size]){
-            cartData[itemId][size]+=1;
+const addToCart = async (userId, itemId, size) => {
+  // Validate size selection
+  if (!size) {
+    toast.error('Please select a size');
+    return;
+  }
 
-        }else{
-            cartData[itemId][size]=1;
-        }
-    
-    }else{
-        cartData[itemId]={};
-        cartData[itemId][size]=1;
-    }
-    setCartItems(cartData)
-    // console.log(cartData)
+  // Clone cart data to avoid direct mutation
+  let cartData = structuredClone(cartItems); 
 
-if(token){
+  // Update quantity logic
+  if (!cartData[itemId]) {
+    cartData[itemId] = {};
+  }
 
+  if (cartData[itemId][size]) {
+    cartData[itemId][size] += 1;
+  } else {
+    cartData[itemId][size] = 1;
+  }
+
+  // Update local state
+  setCartItems(cartData);
+
+  // Sync with backend if logged in
+  if (token) {
     try {
-         await axios.post(backendUrl + '/api/cart/add', { itemId, size}, {
-  headers: {Authorization: `Bearer ${token}`}
-
-});
+   await axios.post(
+  backendUrl + '/api/cart/add',
+  { userId, itemId, size }, // make sure userId is not null
+  { headers: { Authorization: `Bearer ${token}` } }
+);
 
     } catch (error) {
-        console.log(error)
-        toast.error(error.message)
+      console.error(error);
+      toast.error(error.response?.data?.message || 'Failed to sync cart');
     }
-}
-}
+  }
+};
+
 const getCartCount=()=>{
     let totalCount =0;
+    
     for(const items in cartItems){
         for(const item in cartItems[items]){
            
@@ -63,6 +69,7 @@ const getCartCount=()=>{
                 }
             }
         } return totalCount;
+        
     } 
    
 

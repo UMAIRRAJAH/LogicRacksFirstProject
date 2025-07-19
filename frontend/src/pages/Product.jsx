@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom';
 import { ShopContext } from '../Context/ShopContext';
 import assets from '../assets/products';
 import RelatedProduct from '../components/RelatedProduct';
+import { useNavigate } from 'react-router-dom';
 
 
 const Product = () => {
   
   const { productId } = useParams();
-  
+  const navigate = useNavigate();
+
   const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState('');
@@ -31,6 +33,17 @@ const Product = () => {
   if (!productData) {
     return <div>Loading product...</div>;
   }
+const token = localStorage.getItem('token');
+let userId = null;
+
+if (token) {
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    userId = payload.id;
+  } catch (error) {
+    console.error('Failed to decode token:', error);
+  }
+}
 
   return (
     <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
@@ -85,12 +98,25 @@ const Product = () => {
               ))}
             </div>
           </div>
-          <button
-            onClick={() => addToCart(productData._id, size)}
-            className='bg-black text-white px-8 py-3 mt-3 text-sm active:bg-gray-700 top-2'
-          >
-            ADD To Cart
-          </button>
+      <button
+  onClick={async () => {
+    if (!userId) {
+      // eslint-disable-next-line no-undef
+      toast.error("You must be logged in to add items to cart");
+      return;
+    }
+
+    await addToCart(userId, productData._id, size);
+    navigate('/cart'); // 👈 Navigate to the cart page
+  }}
+  className='bg-black text-white px-8 py-3 mt-3 text-sm active:bg-gray-700 top-2'
+>
+  Add to Cart
+</button>
+
+
+
+           
           <hr className='mt-8 sm:w-4/5'/>
           <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
             <p>100% Original Product</p>

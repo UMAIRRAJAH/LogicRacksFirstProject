@@ -3,38 +3,46 @@ import jwt from 'jsonwebtoken'
 
 export const addToCart = async (req, res) => {
   try {
-    const { userId, itemId, size } = req.body; // 🧠 get userId from body, not token
+    console.log("🔵 Incoming request:", req.body);
 
-    if (!userId) {
-      return res.status(400).json({ success: false, message: "User ID is required" });
+    const { userId, itemId, size } = req.body;
+
+    if (!userId || !itemId || !size) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID, Item ID, and Size are required",
+      });
     }
 
     const userData = await userModel.findById(userId);
     if (!userData) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
     }
+
+    console.log("🟢 User found:", userData.name);
 
     let cartData = userData.cartData || {};
-
-    if (!cartData[itemId]) {
-      cartData[itemId] = {};
-    }
-
-    if (!cartData[itemId][size]) {
-      cartData[itemId][size] = 1;
-    } else {
-      cartData[itemId][size] += 1;
-    }
+    if (!cartData[itemId]) cartData[itemId] = {};
+    cartData[itemId][size] = (cartData[itemId][size] || 0) + 1;
 
     await userModel.findByIdAndUpdate(userId, { cartData });
 
     res.json({ success: true, message: "Added to cart" });
 
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
+    console.error("❌ Error in addToCart:", error);  // <--- key line
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
   }
 };
+
+
 
 export const updateCartQuantity = async (req, res) => {
   try {

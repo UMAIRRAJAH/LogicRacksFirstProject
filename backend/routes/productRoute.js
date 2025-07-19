@@ -9,10 +9,10 @@ import { verifyUser } from '../middleware/verifyUser.js';
 
 
 
-router.post('/add' , upload.single('image'), addProduct);
+router.post('/add' , verifyUser, upload.single('image'), addProduct);
 
-router.post('/remove', removeProduct);
-router.post('/single',singleProduct);
+router.post('/remove',verifyUser, removeProduct);
+router.post('/single', verifyUser,singleProduct);
 router.get('/list', listProducts);
 
 export default router;
