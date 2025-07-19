@@ -26,7 +26,7 @@ const Navbar = () => {
   <NavLink
     to="/"
     className={({ isActive }) =>
-      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-purple-600 font-semibold' : 'text-gray-800'}`
+      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-black font-semibold' : 'text-gray-800'}`
     }
   >
     <p>HOME</p>
@@ -35,7 +35,7 @@ const Navbar = () => {
   <NavLink
     to="/collection"
     className={({ isActive }) =>
-      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-purple-600 font-semibold' : 'text-gray-800'}`
+      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-black font-semibold' : 'text-gray-800'}`
     }
   >
     <p>COLLECTION</p>
@@ -44,7 +44,7 @@ const Navbar = () => {
   <NavLink
     to="/about"
     className={({ isActive }) =>
-      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-purple-600 font-semibold' : 'text-gray-800'}`
+      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-black font-semibold' : 'text-gray-800'}`
     }
   >
     <p>ABOUT</p>
@@ -53,7 +53,7 @@ const Navbar = () => {
   <NavLink
     to="/contact"
     className={({ isActive }) =>
-      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-purple-600 font-semibold' : 'text-gray-800'}`
+      `flex flex-col items-center gap-2 hover:underline ${isActive ? 'text-black font-semibold' : 'text-gray-800'}`
     }
   >
     <p>CONTACT</p>
