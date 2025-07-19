@@ -19,19 +19,17 @@ const router = express.Router();
 
 // ✅ Now safe to use middleware
 // Allow requests from your frontend domain
-const allowedOrigins = [
-  'https://frontend-exwhdey28-umairrajahs-projects.vercel.app',
-  'https://admindata-3v1psrtjz-umairrajahs-projects.vercel.app'
-];
+const express = require('express');
+const cors = require('cors');
 
 
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+// ✅ Allow requests from your frontend
+app.use(cors);
 
+// Body parser middleware (if needed)
 app.use(express.json());
+
+
 
 // Database connection
 connectDB()
@@ -75,7 +73,7 @@ app.use('/api/message', contactRouter);
 
 // Example route
 app.get('/api/product/list', (req, res) => {
-  res.json({ products: [] });
+  res.json( { message: 'This is a public API!' });
 });
 
 // Root route
