@@ -69,8 +69,10 @@ import img_40 from './img_40.jpg'
 
 import img_41 from './img_41.jpg'
 import img_42 from './img_42.jpg'
+
 const assets = {
   logo,
+  icons,
   video1,
   video2,
   video3,
@@ -94,7 +96,7 @@ img_42,
   banner2,
   banner3,
   banner6,
-  icons,
+
   stripe,
   ContactUs,
   cross,

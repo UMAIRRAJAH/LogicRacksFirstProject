@@ -65,16 +65,16 @@ const Orders = ({ token }) => {
   }, [token]);
 
   return (
-    <div className="p-4">
+    <div className="p-4items-center justify-center gap-6 text-center px-4 sm:px-0">
       <h2 className="text-2xl sm:text-5xl font-extrabold text-gray-600 tracking-tight text-center mb-6">
         Order Page
       </h2>
 
-      <div className="flex flex-col gap-6  ">
+      <div className="flex flex-col gap-6 justify-center  ">
         {orders.map((order, index) => (
           <div
             key={index}
-            className="flex flex-col md:flex-row justify-between items-start md:items-center border p-4 rounded-lg shadow-sm gap-4 bg-lime-200"
+            className="flex flex-col md:flex-row justify-center items-center md:items-center border p-4 rounded-lg shadow-sm gap-4 bg-lime-200"
           >
             {/* Image */}
             <img className="w-24 h-24 object-cover rounded-lg" src={assets.box} alt="Box" />
@@ -97,7 +97,7 @@ const Orders = ({ token }) => {
             </div>
 
             {/* Meta Info */}
-            <div className="flex flex-col items-start md:items-end gap-2 min-w-[150px]">
+            <div className="flex flex-col items-center md:items-end gap-2 min-w-[150px]">
               <p className="font-medium  text-lime-900">Items: {order.items.length}</p>
               <p className="font-medium  text-lime-900">
   paymentMethod:

@@ -6,7 +6,18 @@ import ProductItem from '../components/ProductItem';
 
 const Collection = () => {
   const {products,search,showSearch} = useContext(ShopContext)
-  const [showFilter,setShowFilter]=useState(true);   
+  const [showFilter, setShowFilter] = useState(window.innerWidth >= 640);
+
+useEffect(() => {
+  const handleResize = () => {
+    if (window.innerWidth >= 640) {
+      setShowFilter(true);
+    }
+  };
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
+  
   const [filterProducts, setFilterProducts]=useState([]);
   const [category,setCategory]=useState([]);
   
@@ -75,8 +86,17 @@ const sortProduct =() =>{
   return (
     <div className='flex flex-col sm:flex-row gap-2 sm:gap-10 pt-10 border-t'>
    <div className='min-w-60'>
-    <p onClick={()=> setShowFilter()} className='my-2 text-xl flex items-center cursor-pointer gap-2'> FILTERS </p>
-    <img className={`h-3 sm:hidden ${ showFilter ? 'rotate-90': ' '}`} src={assets.rightside}/>
+   <p
+  onClick={() => setShowFilter((prev) => !prev)}
+  className="my-2 text-xl flex items-center cursor-pointer gap-2"
+>
+  FILTERS
+  <img
+    className={`h-3 sm:hidden transition-transform duration-300 ${showFilter ? 'rotate-90' : ''}`}
+    src={assets.rightside}
+    alt="Toggle"
+  />
+</p>
     <div className={`border border-gray-300 pl-5 py-3  mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
     <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
