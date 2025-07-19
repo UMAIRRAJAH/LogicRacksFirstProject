@@ -6,14 +6,14 @@ import { verifyUser } from '../middleware/verifyUser.js';
 
 const orderRouter=express.Router()
 //admin feauture
-orderRouter.post('/list', verifyUser,allOrders)
-orderRouter.post('/status',verifyUser,updateStatus)
+orderRouter.post('/list', allOrders)
+orderRouter.post('/status',updateStatus)
 // paymentFeature
-orderRouter.post('/place',verifyUser,placeOrder)
+orderRouter.post('/place',placeOrder)
 // userFeatures
-orderRouter.post('/userorders',verifyUser,userOrders)
-orderRouter.post('/stripe',verifyUser,placeOrderStripe)
-orderRouter.post('/verifyStripe',verifyUser,verifyStripe)
+orderRouter.post('/userorders',userOrders)
+orderRouter.post('/stripe',placeOrderStripe)
+orderRouter.post('/verifyStripe',verifyStripe)
 export default orderRouter;
 
 
