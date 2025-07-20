@@ -76,10 +76,8 @@ const Orders = ({ token }) => {
             key={index}
             className="flex flex-col md:flex-row justify-center items-center md:items-center border p-4 rounded-lg shadow-sm gap-4 bg-lime-200"
           >
-            {/* Image */}
             <img className="w-24 h-24 object-cover rounded-lg" src={assets.box} alt="Box" />
 
-            {/* Order Details */}
             <div className="flex-1 
 ">
               <div className="mb-2 font-medium  text-lime-900 ">
@@ -96,7 +94,6 @@ const Orders = ({ token }) => {
               <p className="font-medium  text-lime-900">{order.address.phone}</p>
             </div>
 
-            {/* Meta Info */}
             <div className="flex flex-col items-center md:items-end gap-2 min-w-[150px]">
               <p className="font-medium  text-lime-900">Items: {order.items.length}</p>
               <p className="font-medium  text-lime-900">

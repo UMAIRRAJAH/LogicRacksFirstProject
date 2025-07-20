@@ -37,7 +37,7 @@ const onSubmitHandler = async (e) => {
 
 
     const response = await axios.post(
-      backendUrl + "/api/product/add",
+      backendUrl + '/api/product/add',
       formData,
       {
       headers: {
@@ -72,7 +72,6 @@ const onSubmitHandler = async (e) => {
   return (
     <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
 
-      {/* Image Upload */}
       <div className='mb-2'>
         <p>Upload Image</p>
         <div className='flex gap-2'>
@@ -93,7 +92,6 @@ const onSubmitHandler = async (e) => {
         </div>
       </div>
 
-      {/* Name */}
       <div className='w-full'>
         <p className='mb-2'>Product Name</p>
         <input
@@ -106,7 +104,6 @@ const onSubmitHandler = async (e) => {
         />
       </div>
 
-      {/* Description */}
       <div className='w-full'>
         <p className='mb-2'>Product Description</p>
         <textarea
@@ -118,7 +115,6 @@ const onSubmitHandler = async (e) => {
         />
       </div>
 
-      {/* Category & Subcategory & Price */}
       <div className='flex flex-col sm:flex-row gap-2 w-full sm:gap-8'>
         <div>
           <p className='mb-2'>Product Category</p>

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 
 export const addToCart = async (req, res) => {
   try {
-    console.log("🔵 Incoming request:", req.body);
+    console.log(" Incoming request:", req.body);
 
     const { userId, itemId, size } = req.body;
 
@@ -22,7 +22,7 @@ export const addToCart = async (req, res) => {
       });
     }
 
-    console.log("🟢 User found:", userData.name);
+    console.log(" User found:", userData.name);
 
     let cartData = userData.cartData || {};
     if (!cartData[itemId]) cartData[itemId] = {};

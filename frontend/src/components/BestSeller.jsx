@@ -16,7 +16,6 @@ const BestSeller = () => {
             <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600 text-center'>
                Shop our best-selling items, chosen by our customers as the most reliable, stylish, and high-performing products. Don't miss out on the items everyone’s raving about
             </p>
-        {/* </Title> */}
        </div>
             <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 '>
          {bestseller.map((item, index) => (

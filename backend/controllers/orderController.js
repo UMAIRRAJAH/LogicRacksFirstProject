@@ -12,7 +12,6 @@ export const placeOrder = async (req, res) => {
   try {
     const data = req.body.orderData || req.body;
 
-    // Make sure this is BEFORE using amount
     const { address, items, amount, paymentMethod } = data;
 
     console.log("Incoming order data:", req.body);
@@ -24,9 +23,7 @@ export const placeOrder = async (req, res) => {
     const DELIVERY_FEE = 5.0;
     const totalAmount = parseFloat(amount) + DELIVERY_FEE;
 
-    // Optional: card payment logic
     if (paymentMethod === "card") {
-      // card payment integration here
     }
 
     const order = new OrderModel({

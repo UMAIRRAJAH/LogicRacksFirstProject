@@ -5,37 +5,30 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 
-// Create token
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "3d" });
 };
 
-// Register User
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Check if user already exists
     const exists = await userModel.findOne({ email });
     if (exists) {
       return res.status(400).json({ success: false, message: "User already exists" });
     }
 
-    // Validate email
     if (!validator.isEmail(email)) {
       return res.status(400).json({ success: false, message: "Please enter a valid email" });
     }
 
-    // Validate password 
     if (password.length < 8) {
       return res.status(400).json({ success: false, message: "Password must be at least 8 characters" });
     }
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create and save user
     const newUser = new userModel({
       name,
       email,
@@ -44,7 +37,6 @@ const registerUser = async (req, res) => {
 
     const user = await newUser.save();
 
-    // Create token
     const token = createToken(user._id);
 
     res.status(201).json({ success: true, token });

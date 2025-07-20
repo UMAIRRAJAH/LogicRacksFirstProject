@@ -4,6 +4,7 @@ import { ShopContext } from '../Context/ShopContext';
 import assets from '../assets/products';
 import RelatedProduct from '../components/RelatedProduct';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const Product = () => {
@@ -101,13 +102,12 @@ if (token) {
       <button
   onClick={async () => {
     if (!userId) {
-      // eslint-disable-next-line no-undef
       toast.error("You must be logged in to add items to cart");
       return;
     }
 
     await addToCart(userId, productData._id, size);
-    navigate('/cart'); // 👈 Navigate to the cart page
+    navigate('/cart'); 
   }}
   className='bg-black text-white px-8 py-3 mt-3 text-sm active:bg-gray-700 top-2'
 >

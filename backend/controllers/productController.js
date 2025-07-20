@@ -14,15 +14,12 @@ export const addProduct = async (req, res) => {
     console.log("Received file:", image);
     console.log("Form fields:", req.body);
 
-    // Upload to Cloudinary
     const result = await cloudinary.uploader.upload(image.path, {
       folder: 'products',
     });
 
-    // Delete temp file
     fs.unlinkSync(image.path);
 
-    // Parse sizes safely
     let parsedSizes;
     try {
       parsedSizes = JSON.parse(sizes);
@@ -67,9 +64,7 @@ export const listProducts = async (req, res) => {
 
 export const removeProduct = async (req, res) => {
   try{
-    // const { productId } = req.body;
 await productModel.findByIdAndDelete(req.body.id);
-// console.log('Deleting product with ID:', req.body.id);
 
     res.json({success:true,message:"Product Removed"})
   }catch(error){

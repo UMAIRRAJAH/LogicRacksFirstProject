@@ -1,17 +1,13 @@
-// controllers/contactController.js
 import contactModel from '../models/contactModel.js';
 import nodemailer from 'nodemailer';
 
-// Main handler function
 export const submitContactForm = async (req, res) => {
   const { name, email, message } = req.body;
 
   try {
-    // 1. Save to MongoDB
     const newMessage = new contactModel({ name, email, message });
     await newMessage.save();
 
-    // 2. Send email
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {

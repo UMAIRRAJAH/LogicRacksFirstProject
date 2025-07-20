@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 
 import { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -19,16 +20,13 @@ const ShopContextProvider =(props) =>{
 
 
 const addToCart = async (userId, itemId, size) => {
-  // Validate size selection
   if (!size) {
     toast.error('Please select a size');
     return;
   }
 
-  // Clone cart data to avoid direct mutation
   let cartData = structuredClone(cartItems); 
 
-  // Update quantity logic
   if (!cartData[itemId]) {
     cartData[itemId] = {};
   }
@@ -39,15 +37,15 @@ const addToCart = async (userId, itemId, size) => {
     cartData[itemId][size] = 1;
   }
 
-  // Update local state
+ 
   setCartItems(cartData);
 
-  // Sync with backend if logged in
+
   if (token) {
     try {
    await axios.post(
   backendUrl + '/api/cart/add',
-  { userId, itemId, size }, // make sure userId is not null
+  { userId, itemId, size },
   { headers: { Authorization: `Bearer ${token}` } }
 );
 
