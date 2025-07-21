@@ -101,8 +101,6 @@ if (token) {
   onClick={async () => {
     if(size){
 toast.success("you cart is successfully added");
-    }else{
-      toast.error("your cart is not Successfully added")
     }
     
     if (!userId) {
