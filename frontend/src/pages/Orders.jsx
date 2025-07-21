@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../Context/ShopContext'
 import Title from '../components/Title'
@@ -43,12 +44,11 @@ const loadOrderData = async () => {
 
 
 
-  useEffect(()=>{
-    
-  //    console.log("Token:", token);
-  // console.log("Backend URL:", backendUrl);
-    loadOrderData()
-  },[token])
+useEffect(() => {
+  console.log("Token in Orders.jsx:", token);
+  if (token) loadOrderData();
+}, [token]);
+
   return (
     <div className='border-t pt-16'>
       <div className='text-center'>
@@ -59,6 +59,7 @@ const loadOrderData = async () => {
  
  { 
   orderData.map((item, index) => (
+   
   <div
     key={index}
     className='py-4 border-t border-b border-black text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4'

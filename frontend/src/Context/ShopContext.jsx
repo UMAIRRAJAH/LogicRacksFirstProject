@@ -145,7 +145,7 @@ useEffect(() => {
     setToken(savedToken);
     getUserCart(savedToken); 
   }
-}, [token]);
+}, []);
 
 const getProductData = async () => {
   try {

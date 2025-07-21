@@ -41,6 +41,7 @@ paymentMethod: {
 
 createdAt: { type: Date, default: Date.now }
 
+
 }, { timestamps: true });
 
 const orderModel = mongoose.models.order || mongoose.model("order", orderSchema);
