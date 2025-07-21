@@ -3,14 +3,12 @@ import { useParams } from 'react-router-dom';
 import { ShopContext } from '../Context/ShopContext';
 import assets from '../assets/products';
 import RelatedProduct from '../components/RelatedProduct';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
 const Product = () => {
   
   const { productId } = useParams();
-  const navigate = useNavigate();
 
   const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(null);
@@ -101,13 +99,18 @@ if (token) {
           </div>
       <button
   onClick={async () => {
+    if(size){
+toast.success("you cart is successfully added");
+    }else{
+      toast.error("your cart is not Successfully added")
+    }
+    
     if (!userId) {
       toast.error("You must be logged in to add items to cart");
       return;
     }
 
     await addToCart(userId, productData._id, size);
-    navigate('/cart'); 
   }}
   className='bg-black text-white px-8 py-3 mt-3 text-sm active:bg-gray-700 top-2'
 >
