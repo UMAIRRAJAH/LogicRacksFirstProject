@@ -73,9 +73,10 @@ export const allOrders = async (req, res) => {
 
 export const userOrders = async (req, res) => {
   try {
-    console.log("Fetching orders for userId:", req.userId); 
 
     const orders = await OrderModel.find({ userId: req.userId });
+    console.log("Fetching orders for userId:", req.userId); 
+
     console.log("Orders found:", orders.length);
 
     res.json({ success: true, orders });
@@ -140,7 +141,7 @@ export const placeOrderStripe = async (req, res) => {
       address,
       amount,
       paymentMethod: 'stripe',  
-      payment: false,
+      
       date: Date.now(),
     });
 
@@ -187,8 +188,7 @@ export const verifyStripe = async (req, res) => {
 
   try {
     if (success === 'true') {
-      const orders = await OrderModel.find({ userId: req.userId, payment: true }).sort({ createdAt: -1 });
-
+      await orderModel.findByIdAndUpdate(orderId, { payment: true });
       await userModel.findByIdAndUpdate(userId, { cartData: {} });
 
       return res.json({ success: true, message: "Payment verified and order updated." });
@@ -198,7 +198,6 @@ export const verifyStripe = async (req, res) => {
     }
   } catch (error) {
     console.error("Stripe verification error:", error.message);
-    console.error(error)
     return res.status(500).json({ success: false, message: "Server error during payment verification" });
   }
 };

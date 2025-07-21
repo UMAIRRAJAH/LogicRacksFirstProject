@@ -122,6 +122,7 @@ const getUserCart = async (token) => {
         },
       }
     );
+console.log("Response from server:", response.data);
 
     if (response.data.success) {
       setCartItems(response.data.cartData);
